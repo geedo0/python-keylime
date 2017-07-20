@@ -258,6 +258,7 @@ class Handler(BaseHTTPRequestHandler):
                         logger.debug("Executing specified script: %s"%initscript)
                         env = os.environ.copy()
                         env['NODE_UUID']=self.server.node_uuid
+                        env["LD_LIBRARY_PATH"] = "/newlib:" + env["LD_LIBRARY_PATH"]
                         proc= subprocess.Popen(["/bin/sh",initscript],env=env,shell=False,cwd='%s/unzipped'%secdir,
                                                 stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
                         proc.wait()
